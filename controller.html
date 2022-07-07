@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/controller.css" />
+		<link rel="stylesheet" href="controller.css">
+		<script src="js/intercom.js"> </script>
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+		<!-- Communicate with presentation tabs -->
+		<script>
+			var socket = io();
+
+			var left = function(){
+				socket.emit('left');
+			};
+
+			var right = function(){
+				socket.emit('right');
+			};
+
+			var up = function(){
+				socket.emit('up');
+			};
+			var down = function(){
+				socket.emit('down');
+			};
+			
+            var zoomIn = function(){
+                socket.emit('zoomIn');
+            };
+
+            var zoomOut = function(){
+                socket.emit('zoomOut');
+            };
+
+            var fullscreen = function(){
+                socket.emit('fullscreen');
+            };
+		</script>
+
+	</head>
+	<body style="background-color: #F9CCCA;">
+		<h1>
+			<center>This is the page for controlling VR presentation remotely</center>
+		</h1>
+		<h3><center>Here are the buttons for navigation the VR image</center></h3>
+        <center>
+		<div class="outer">
+			<div class="div1">
+			    <button id="prevButton" onclick="left()">Left</button>
+	            <button id="nextButton" onclick="right()">Right</button>
+			</div>
+			<div class="div2">
+				<button id="upButton" onclick="up()">Up</button>
+		        <button id="downButton" onclick="down()">Down</button>
+            </div>
+		    <div class="div3">
+			    <button id="ziButton" onclick="zoomIn()">Zoom In</button>
+                <button id="zoButton" onclick="zoomOut()">Zoom Out</button>
+		    </div>
+            <div class="div4">
+                <button id="fullscreenButton" onclick="fullscreen()">Fullscreen</button>
+            </div>
+			<script src="app.js"></script>
+    </div>
+    </center>
+	</body>
+</html>

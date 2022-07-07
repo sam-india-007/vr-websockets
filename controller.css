@@ -1,0 +1,107 @@
+#prevButton{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right:16px;
+}
+#nextButton{
+  background-color: #483f94; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#upButton{
+  background-color: #af4c4f; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right:16px;
+}
+#downButton{
+  background-color: #af874c; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#fullscreenButton{
+  background-color: #4ca3af; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right:16px;
+}
+#ziButton{
+  background-color: #658312; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right:16px;
+}
+#zoButton{
+  background-color: #ce35b4; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right:16px;
+}
+
+.div1{
+    margin-bottom: 25px;
+}
+.div2{
+  margin-bottom: 25px;
+}
+.div3{
+  margin-bottom: 25px;
+}
+.div4{
+  margin-bottom: 25px;
+}
+
+.outer{
+  align-items: center;
+  margin-top: 25px;
+}
