@@ -104,10 +104,10 @@ var socket = io();
             socket.on('fullscreen', function() {
                 viewer.toggleFullscreen();
             });
-            socket.on("mark",(posPitch,posYaw)=>{
+            socket.on("mark",(data)=>{
                 // console.log(id);
                 // console.log(name);
-                viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":"infoText"});
+                viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":"infoText"});
             });
 
 </script>
