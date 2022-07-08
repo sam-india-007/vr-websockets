@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Custom controls</title>
     <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/>
+    <!-- <link rel="stylesheet" href="controller.css"> -->
     <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
@@ -20,6 +21,7 @@
         width: 100%;
         padding-bottom: 3px;
     }
+    
     .ctrl {
         padding: 8px 5px;
         width: 30px;
@@ -48,15 +50,29 @@
 </div>
 
 <script>
+
+
 // Create viewer
 viewer = pannellum.viewer('panorama', ﻿{
     "panorama": "/alma-correlator-facility.jpg",
     "autoLoad": true,
-    "showControls": false
+    "showControls": false,
+    // "hotSpotDebug": true,
 });
 
-
 var socket = io();
+
+function mouseupListener(event) {
+        console.log("Mouse Up");
+        var posPitch = viewer.mouseEventToCoords(event)[0];
+        var posYaw   = viewer.mouseEventToCoords(event)[1];
+        console.log(posPitch,posYaw);
+        viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":"infoText"});
+        socket.emit("mark",{posPitch: posPitch, posYaw: posYaw});
+};
+
+viewer.on('mouseup', mouseupListener);
+
 // Make buttons work
 document.getElementById('pan-up').addEventListener('click', function(e) {
     //viewer.setPitch(viewer.getPitch() + 10);
@@ -87,8 +103,6 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
     socket.emit('fullscreen');
 });
 
-
-
 			socket.on('left', function() {
 				viewer.setYaw(viewer.getYaw() - 10);
 			});
@@ -113,6 +127,10 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
             socket.on('fullscreen', function() {
                 viewer.toggleFullscreen();
             });
+            // socket.on('mark',function(posPitch,posYaw){
+            //     console.log(posPitch,posYaw);
+            //     viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":"infoText"});
+            // })
 
 </script>
 

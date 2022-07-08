@@ -43,6 +43,9 @@ io.on('connection', function(socket) {
 	socket.on('fullscreen', function(){
 		io.emit('fullscreen');
 	});
+	socket.on("mark",(posPitch,posYaw)=>{
+		io.emit("mark",{posPitch:posPitch,posYaw:posYaw});
+	});
 	socket.on('disconnect', function(){
 		console.log("Client disconnected");
 	});
