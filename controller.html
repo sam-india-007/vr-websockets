@@ -48,6 +48,10 @@
         <div class="ctrl" id="fullscreen">&#x2922;</div>
     </div>
 </div>
+<form id="InputForm">
+    <label for="input">Text for infospot: </label>
+    <input type="text" id="input" name="input">
+</form>
 
 <script>
 
@@ -66,9 +70,19 @@ function mouseupListener(event) {
         console.log("Mouse Up");
         var posPitch = viewer.mouseEventToCoords(event)[0];
         var posYaw   = viewer.mouseEventToCoords(event)[1];
-        console.log(posPitch,posYaw);
-        viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":"infoText"});
-        socket.emit("mark",{posPitch: posPitch, posYaw: posYaw});
+        // console.log(posPitch,posYaw);
+        var input = document.getElementById("input").value;
+        // console.log(input);
+        // if input is empty, send alert that string is empty and do nothing
+        if (input == "") {
+            alert("Infospot text is empty");
+        }
+        else {
+            viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":input});
+            document.getElementById("input").value = "";
+            socket.emit("mark",{posPitch: posPitch, posYaw: posYaw, input: input});
+        }
+        
 };
 
 viewer.on('mouseup', mouseupListener);

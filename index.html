@@ -107,7 +107,8 @@ var socket = io();
             socket.on("mark",(data)=>{
                 // console.log(id);
                 // console.log(name);
-                viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":"infoText"});
+                // console.log(data.input);
+                viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":data.input});
             });
 
 </script>

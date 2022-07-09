@@ -46,7 +46,8 @@ io.on('connection', function(socket) {
 	socket.on("mark",(data)=>{
 		console.log(data.posPitch);
 		console.log(data.posYaw);
-		io.emit("mark",{posPitch:data.posPitch,posYaw:data.posYaw});
+		console.log(data.input)
+		io.emit("mark",{posPitch:data.posPitch, posYaw:data.posYaw, input: data.input});
 	});
 	socket.on('disconnect', function(){
 		console.log("Client disconnected");
