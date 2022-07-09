@@ -10,6 +10,7 @@ const app = express();
 const bodyParser = require('body-parser'); //for req parsing
 const path = require('path'); //for setting res paths
 const socketIO = require('socket.io');
+var count = 0;
 
 //Configure express
 app.set('port', PORT);
@@ -46,8 +47,15 @@ io.on('connection', function(socket) {
 	socket.on("mark",(data)=>{
 		console.log(data.posPitch);
 		console.log(data.posYaw);
-		console.log(data.input)
-		io.emit("mark",{posPitch:data.posPitch, posYaw:data.posYaw, input: data.input});
+		console.log(data.input);
+		
+		count+=1;
+		console.log(count);
+		io.emit("mark",{posPitch:data.posPitch, posYaw:data.posYaw, input: data.input, id:count});
+	});
+	socket.on("delete",function(){
+		io.emit("delete",{hotSpotId:count.toString()});
+		count-=1;
 	});
 	socket.on('disconnect', function(){
 		console.log("Client disconnected");

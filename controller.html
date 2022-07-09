@@ -51,6 +51,9 @@
 <form id="InputForm">
     <label for="input">Text for infospot: </label>
     <input type="text" id="input" name="input">
+
+     <!--make a button  -->
+    <button type="button" id="button" onclick="socket.emit('delete')">Delete Previous Infospot</button>
 </form>
 
 <script>
@@ -78,7 +81,7 @@ function mouseupListener(event) {
             alert("Infospot text is empty");
         }
         else {
-            viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":input});
+            // viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":input});
             document.getElementById("input").value = "";
             socket.emit("mark",{posPitch: posPitch, posYaw: posYaw, input: input});
         }
@@ -141,10 +144,14 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
             socket.on('fullscreen', function() {
                 viewer.toggleFullscreen();
             });
-            // socket.on('mark',function(posPitch,posYaw){
-            //     console.log(posPitch,posYaw);
-            //     viewer.addHotSpot({"pitch":posPitch, "yaw":posYaw, "type":"info", "text":"infoText"});
-            // })
+            socket.on('mark',(data)=>{
+                console.log(data);
+                viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":data.input, "id": data.id.toString()});
+            });
+            socket.on('delete',(data)=>{
+                console.log(data);
+                viewer.removeHotSpot(data.hotSpotId);
+            });
 
 </script>
 

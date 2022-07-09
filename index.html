@@ -108,7 +108,11 @@ var socket = io();
                 // console.log(id);
                 // console.log(name);
                 // console.log(data.input);
-                viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":data.input});
+                viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":data.input, "id": data.id.toString()});
+            });
+            socket.on('delete',(data)=>{
+                console.log(data);
+                viewer.removeHotSpot(data.hotSpotId);
             });
 
 </script>
