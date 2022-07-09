@@ -60,6 +60,14 @@ io.on('connection', function(socket) {
 	socket.on('disconnect', function(){
 		console.log("Client disconnected");
 	});
+	socket.on("revert",(data)=>{
+		
+		io.emit("revert",data);
+	});
+	socket.on("revertReverse",function(){
+		
+		io.emit("revertReverse");
+	});
 });
 
 
