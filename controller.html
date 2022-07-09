@@ -4,14 +4,22 @@
     <meta charset="utf-8">
     <title>Custom controls</title>
     <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/>
-    <!-- <link rel="stylesheet" href="controller.css"> -->
+    <link rel="stylesheet" href="/controller.css"/>
     <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
     <style>
+    h1 {text-align: center;}
+
+    #button{
+        margin-top: 25px;
+        text-align: center;
+    }
+
     #panorama {
         width: 600px;
         height: 400px;
+        margin: auto;
     }
     #controls {
         position: absolute;
@@ -31,11 +39,13 @@
         cursor: pointer;
     }
     .ctrl:hover {
-        background: rgba(200, 200, 200, 1);
+        background: rgb(200, 211, 156);
     }
     </style>
 </head>
-<body>
+<body style="background-color:#caebf2;">
+
+<h1 style="color: blue;"> This is the controller for panoramic images.</h1>
 
 <div id="panorama">
     <div id="controls">
@@ -48,6 +58,13 @@
         <div class="ctrl" id="fullscreen">&#x2922;</div>
     </div>
 </div>
+
+<div id="button">
+    <button class="button" id="rotate">Start AutoRotate</button><br><br>
+    <button class="button" id="stoprotate" >Stop AutoRotate</button><br><br>
+    <button class="button" id="initial" >Inital Position</button>
+</div>
+
 <form id="InputForm">
     <label for="input">Text for infospot: </label>
     <input type="text" id="input" name="input">
@@ -57,14 +74,13 @@
 </form>
 
 <script>
-
-
 // Create viewer
 viewer = pannellum.viewer('panorama', ﻿{
     "panorama": "/alma-correlator-facility.jpg",
     "autoLoad": true,
+    // "autoRotate": -2,
+    // "autoRotateInactivityDelay": 7000,
     "showControls": false,
-    // "hotSpotDebug": true,
 });
 
 var socket = io();
@@ -89,6 +105,19 @@ function mouseupListener(event) {
 };
 
 viewer.on('mouseup', mouseupListener);
+
+document.getElementById('rotate').addEventListener('click', function(e) {
+    socket.emit('rotate');
+    
+});
+
+document.getElementById('stoprotate').addEventListener('click', function(e) {
+    socket.emit('stoprotate');
+    
+});
+document.getElementById('initial').addEventListener('click', function(e) {
+    socket.emit('initial')
+});
 
 // Make buttons work
 document.getElementById('pan-up').addEventListener('click', function(e) {
@@ -120,7 +149,7 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
     socket.emit('fullscreen');
 });
 
-			socket.on('left', function() {
+		    socket.on('left', function() {
 				viewer.setYaw(viewer.getYaw() - 10);
 			});
 
@@ -141,9 +170,9 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
             socket.on('zoomOut', function() {
                 viewer.setHfov(viewer.getHfov() + 10);
             });
-            socket.on('fullscreen', function() {
-                viewer.toggleFullscreen();
-            });
+            // socket.on('fullscreen', function() {
+            //     viewer.toggleFullscreen();
+            // });
             socket.on('mark',(data)=>{
                 console.log(data);
                 viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":data.input, "id": data.id.toString()});
@@ -151,6 +180,16 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
             socket.on('delete',(data)=>{
                 console.log(data);
                 viewer.removeHotSpot(data.hotSpotId);
+            });
+            socket.on('rotate', function() {
+                viewer.startAutoRotate(-3);
+            });
+            socket.on('stoprotate', function() {
+                viewer.stopAutoRotate();
+            });
+            socket.on('initial', function() {
+                viewer.setPitch(0);
+                viewer.setYaw(0);
             });
 
 </script>

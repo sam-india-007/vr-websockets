@@ -57,6 +57,15 @@ io.on('connection', function(socket) {
 		io.emit("delete",{hotSpotId:count.toString()});
 		count-=1;
 	});
+	socket.on('rotate', function(){
+		io.emit('rotate');
+	});
+	socket.on('stoprotate', function(){
+		io.emit('stoprotate');
+	});
+	socket.on('initial', function(){
+		io.emit('initial');
+	});
 	socket.on('disconnect', function(){
 		console.log("Client disconnected");
 	});

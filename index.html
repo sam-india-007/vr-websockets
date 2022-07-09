@@ -11,6 +11,7 @@
     #panorama {
         width: 600px;
         height: 400px;
+        margin: auto;
     }
     #controls {
         position: absolute;
@@ -33,7 +34,7 @@
     }
     </style>
 </head>
-<body>
+<body style="background-color:#caebf2">
 
 <div id="panorama">
     <div id="controls">
@@ -52,28 +53,11 @@
 viewer = pannellum.viewer('panorama', ﻿{
     "panorama": "/alma-correlator-facility.jpg",
     "autoLoad": true,
+    // "autoRotate": -2,
+    // "autoRotateInactivityDelay": 7000,
     "showControls": false
 });
 
-// Make buttons work
-// document.getElementById('pan-up').addEventListener('click', function(e) {
-//     viewer.setPitch(viewer.getPitch() + 10);
-// });
-// document.getElementById('pan-down').addEventListener('click', function(e) {
-//     viewer.setPitch(viewer.getPitch() - 10);
-// });
-// document.getElementById('pan-left').addEventListener('click', function(e) {
-//     viewer.setYaw(viewer.getYaw() - 10);
-// });
-// document.getElementById('pan-right').addEventListener('click', function(e) {
-//     viewer.setYaw(viewer.getYaw() + 10);
-// });
-// document.getElementById('zoom-in').addEventListener('click', function(e) {
-//     viewer.setHfov(viewer.getHfov() - 10);
-// });
-// document.getElementById('zoom-out').addEventListener('click', function(e) {
-//     viewer.setHfov(viewer.getHfov() + 10);
-// });
 document.getElementById('fullscreen').addEventListener('click', function(e) {
     viewer.toggleFullscreen();
 });
@@ -83,11 +67,9 @@ var socket = io();
 			socket.on('left', function() {
 				viewer.setYaw(viewer.getYaw() - 10);
 			});
-
 			socket.on('right', function() {
 				viewer.setYaw(viewer.getYaw() + 10);
 			});
-
 			socket.on('up', function() {
 				viewer.setPitch(viewer.getPitch() + 10);
 			});
@@ -97,12 +79,21 @@ var socket = io();
 			socket.on('zoomIn', function() {
 				viewer.setHfov(viewer.getHfov() - 10);
 			});
-			
             socket.on('zoomOut', function() {
                 viewer.setHfov(viewer.getHfov() + 10);
             });
             socket.on('fullscreen', function() {
                 viewer.toggleFullscreen();
+            });
+            socket.on('rotate', function() {
+                viewer.startAutoRotate(-3);
+            });
+            socket.on('stoprotate', function() {
+                viewer.stopAutoRotate();
+            });
+            socket.on('initial', function() {
+                viewer.setPitch(0);
+                viewer.setYaw(0);
             });
             socket.on("mark",(data)=>{
                 // console.log(id);
@@ -114,8 +105,8 @@ var socket = io();
                 console.log(data);
                 viewer.removeHotSpot(data.hotSpotId);
             });
+            
 
 </script>
-
 </body>
 </html>
