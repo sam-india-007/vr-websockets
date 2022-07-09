@@ -47,6 +47,9 @@
         <div class="ctrl" id="fullscreen">&#x2922;</div>
     </div>
 </div>
+<form id="InputForm">
+    <button type="button" id="button" onclick="socket.emit('revertReverse')">Revert to Presenter View</button>
+</form>
 
 <script>
 // Create viewer
@@ -102,10 +105,19 @@ var socket = io();
                 viewer.addHotSpot({"pitch":data.posPitch, "yaw":data.posYaw, "type":"info", "text":data.input, "id": data.id.toString()});
             });
             socket.on('delete',(data)=>{
-                console.log(data);
+                // console.log(data);
                 viewer.removeHotSpot(data.hotSpotId);
             });
+
+            socket.on('revert', (data)=>{
+                // console.log(data);
+                viewer.setPitch(data.pitch);
+                viewer.setYaw(data.yaw);
+                viewer.setHfov(data.hfov);
+            });
+
             
+
 
 </script>
 </body>

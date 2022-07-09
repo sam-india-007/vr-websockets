@@ -71,6 +71,7 @@
 
      <!--make a button  -->
     <button type="button" id="button" onclick="socket.emit('delete')">Delete Previous Infospot</button>
+    <button type="button" id="button" onclick="revertFun()">Revert to Presenter View</button>
 </form>
 
 <script>
@@ -102,6 +103,14 @@ function mouseupListener(event) {
             socket.emit("mark",{posPitch: posPitch, posYaw: posYaw, input: input});
         }
         
+};
+
+function revertFun(event) {
+        console.log("revert");
+        var pitch = viewer.getPitch();
+        var yaw   = viewer.getYaw(); 
+        var hfov  = viewer.getHfov();
+        socket.emit("revert",{pitch: pitch, yaw: yaw, hfov: hfov});      
 };
 
 viewer.on('mouseup', mouseupListener);
@@ -181,6 +190,10 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
                 console.log(data);
                 viewer.removeHotSpot(data.hotSpotId);
             });
+
+            socket.on('revertReverse', function() {
+                revertFun();
+
             socket.on('rotate', function() {
                 viewer.startAutoRotate(-3);
             });
@@ -190,6 +203,7 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
             socket.on('initial', function() {
                 viewer.setPitch(0);
                 viewer.setYaw(0);
+
             });
 
 </script>
