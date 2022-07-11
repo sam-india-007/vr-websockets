@@ -60,12 +60,29 @@
 
 <script>
 // Create viewer
-viewer = pannellum.viewer('panorama', ﻿{
-    "panorama": "/alma-correlator-facility.jpg",
+var viewer = pannellum.viewer('panorama', ﻿{
+    "default": {
+        "firstScene": "sc1",
+        "sceneFadeDuration": 1000
+    },
+    "scenes": {
+        'sc1': {
+        "type": "equirectangular",
+        "panorama": "/images/alma-correlator-facility.jpg",
+        },
+        'sc2': {
+        "type": "equirectangular",
+        "panorama": "/images/future.jpg"
+        },
+        'sc3': {
+        "type": "equirectangular",
+        "panorama": "/images/restro.jpg"}
+
+    },
     "autoLoad": true,
     // "autoRotate": -2,
     // "autoRotateInactivityDelay": 7000,
-    "showControls": false
+    "showControls": false,
 });
 
 document.getElementById('fullscreen').addEventListener('click', function(e) {
@@ -121,6 +138,9 @@ var socket = io();
                 viewer.setPitch(data.pitch);
                 viewer.setYaw(data.yaw);
                 viewer.setHfov(data.hfov);
+            });
+            socket.on('scene', function(data) {
+                viewer.loadScene(data.scene);
             });
 
             

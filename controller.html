@@ -75,16 +75,45 @@
     <button type="button" class="button" id="rotate" onclick="revertFun()">Revert to Presenter View</button>
      </div>
 </form>
+<form>
+    <label for="scenes">Select Scene</label>
+    <select name="scenes" id="scenes">
+        <option value="sc1">Scene 1</option>
+        <option value="sc2">Scene 2</option>
+        <option value="sc3">Scene 3</option>
+        
+    </select>
+    <button type="button" class="button" id="rotate" onclick="sceneChange()">Apply Changes to Scene</button>
+</form>
 
 <script>
 // Create viewer
-viewer = pannellum.viewer('panorama', ﻿{
-    "panorama": "/alma-correlator-facility.jpg",
+var viewer = pannellum.viewer('panorama', ﻿{
+    "default": {
+        "firstScene": "sc1",
+        "sceneFadeDuration": 1000
+    },
+    "scenes": {
+        'sc1': {
+        "type": "equirectangular",
+        "panorama": "/images/alma-correlator-facility.jpg",
+        },
+        'sc2': {
+        "type": "equirectangular",
+        "panorama": "/images/future.jpg"
+        },
+        'sc3': {
+        "type": "equirectangular",
+        "panorama": "/images/restro.jpg"}
+
+    },
     "autoLoad": true,
     // "autoRotate": -2,
     // "autoRotateInactivityDelay": 7000,
     "showControls": false,
 });
+
+
 
 var socket = io();
 
@@ -105,6 +134,13 @@ function mouseupListener(event) {
             socket.emit("mark",{posPitch: posPitch, posYaw: posYaw, input: input});
         }
         
+};
+
+function sceneChange(event) {
+        var select = document.getElementById("scenes");
+        var scene = select.options[select.selectedIndex].value;
+        console.log(scene);
+        socket.emit("scene",{scene: scene});        
 };
 
 function revertFun(event) {
@@ -195,7 +231,7 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
 
             socket.on('revertReverse', function() {
                 revertFun();
-	    });
+            });
             socket.on('rotate', function() {
                 viewer.startAutoRotate(-3);
             });
@@ -206,6 +242,10 @@ document.getElementById('fullscreen').addEventListener('click', function(e) {
                 viewer.setPitch(0);
                 viewer.setYaw(0);
 
+            });
+            socket.on('scene', (data)=>{
+                console.log(data);
+                viewer.loadScene(data.scene);
             });
 
 </script>

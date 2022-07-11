@@ -77,6 +77,11 @@ io.on('connection', function(socket) {
 		
 		io.emit("revertReverse");
 	});
+	socket.on("scene",(data)=>{
+		var scene = data.scene;
+		console.log(scene);
+		io.emit("scene",{scene:scene});
+	});
 });
 
 
