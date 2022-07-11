@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Custom controls</title>
     <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/>
+    <link rel="stylesheet" href="/controller.css"/>
     <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
@@ -12,6 +13,10 @@
         width: 600px;
         height: 400px;
         margin: auto;
+    }
+    #button{
+        margin-top: 25px;
+        text-align: center;
     }
     #controls {
         position: absolute;
@@ -47,9 +52,11 @@
         <div class="ctrl" id="fullscreen">&#x2922;</div>
     </div>
 </div>
-<form id="InputForm">
-    <button type="button" id="button" onclick="socket.emit('revertReverse')">Revert to Presenter View</button>
-</form>
+<div id="button">
+    <form id="InputForm">
+        <button type="button" class="button" id="rotate" onclick="socket.emit('revertReverse')">Revert to Presenter View</button>
+    </form>
+</div>
 
 <script>
 // Create viewer

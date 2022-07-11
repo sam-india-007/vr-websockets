@@ -62,7 +62,7 @@
 <div id="button">
     <button class="button" id="rotate">Start AutoRotate</button><br><br>
     <button class="button" id="stoprotate" >Stop AutoRotate</button><br><br>
-    <button class="button" id="initial" >Inital Position</button>
+    <button class="button" id="initial" >Inital Position</button><br><br>
 </div>
 
 <form id="InputForm">
@@ -70,8 +70,10 @@
     <input type="text" id="input" name="input">
 
      <!--make a button  -->
-    <button type="button" id="button" onclick="socket.emit('delete')">Delete Previous Infospot</button>
-    <button type="button" id="button" onclick="revertFun()">Revert to Presenter View</button>
+     <div id="button">
+    <button type="button" class="button" id="rotate" onclick="socket.emit('delete')">Delete Previous Infospot</button>
+    <button type="button" class="button" id="rotate" onclick="revertFun()">Revert to Presenter View</button>
+     </div>
 </form>
 
 <script>
