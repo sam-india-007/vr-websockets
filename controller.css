@@ -1,7 +1,21 @@
 #rotate{
   background-color: #4bff3b ; 
   border: none;
-  color: white;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right:16px;
+}
+
+#mybtn{
+  background-color:rgba(255, 0, 0, 0.514) ; 
+  border: none;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -14,7 +28,7 @@
 #stoprotate{
   background-color: #4bff3b; /* Green */
   border: none;
-  color: white;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -27,7 +41,7 @@
 #initial{
   background-color: #4bff3b; /* Green */
   border: none;
-  color: white;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;

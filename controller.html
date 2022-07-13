@@ -2,14 +2,18 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Custom controls</title>
+    <title>Controller</title>
     <link rel="stylesheet" href="https://cdn.pannellum.org/2.3/pannellum.css"/>
     <link rel="stylesheet" href="/controller.css"/>
     <script type="text/javascript" src="https://cdn.pannellum.org/2.3/pannellum.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'/>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
     <style>
     h1 {text-align: center;}
+    body {
+        font-family: 'Roboto'
+    }
 
     #button{
         margin-top: 25px;
@@ -45,7 +49,7 @@
 </head>
 <body style="background-color:#caebf2;">
 
-<h1 style="color: blue;"> This is the controller for panoramic images.</h1>
+<h1 style="color: rgb(197, 46, 46);">Controller for VR Presentation</h1>
 
 <div id="panorama">
     <div id="controls">
@@ -60,21 +64,25 @@
 </div>
 
 <div id="button">
-    <button class="button" id="rotate">Start AutoRotate</button><br><br>
-    <button class="button" id="stoprotate" >Stop AutoRotate</button><br><br>
-    <button class="button" id="initial" >Inital Position</button><br><br>
+    <button class="button" id="rotate">Start AutoRotate</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="button" id="stoprotate" >Stop AutoRotate</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="button" id="initial" >Inital Position</button><br><br><br>
 </div>
 
 <form id="InputForm">
+    <center>
     <label for="input">Text for infospot: </label>
     <input type="text" id="input" name="input">
+    </center>
 
      <!--make a button  -->
      <div id="button">
-    <button type="button" class="button" id="rotate" onclick="socket.emit('delete')">Delete Previous Infospot</button>
-    <button type="button" class="button" id="rotate" onclick="revertFun()">Revert to Presenter View</button>
+    <button type="button" class="button" id="mybtn" onclick="socket.emit('delete')">Delete Previous Infospot</button>
+    <button type="button" class="button" id="mybtn" onclick="revertFun()">Revert to Presenter View</button>
      </div>
 </form>
+<br><br>
+<center>
 <form>
     <label for="scenes">Select Scene</label>
     <select name="scenes" id="scenes">
@@ -85,6 +93,7 @@
     </select>
     <button type="button" class="button" id="rotate" onclick="sceneChange()">Apply Changes to Scene</button>
 </form>
+</center>
 
 <script>
 // Create viewer
