@@ -1,6 +1,22 @@
 {
+  "name": "vr-websockets",
+  "version": "1.0.0",
+  "description": "Remotely control VR presentations",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "websockets",
+    "heroku"
+  ],
+  "author": "Samriddha Sinha",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.18.1",
     "socket.io": "^1.4.8"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
